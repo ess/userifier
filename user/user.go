@@ -12,7 +12,7 @@ type User struct {
   Perm string
 }
 
-func (u User) String() string {
+func (u *User) String() string {
   return u.UserName + " (real name: " + u.RealName + ", preferred shell: " + u.PreferredShell + ")"
 }
 
