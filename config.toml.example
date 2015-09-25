@@ -1,0 +1,4 @@
+# Specify your Userify API id and API key here
+
+api_id = "USERIFY API ID"
+api_key = "USERIFY API KEY"
