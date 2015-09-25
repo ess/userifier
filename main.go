@@ -64,9 +64,9 @@ func main() {
   api_id := config.ApiId
   api_key := config.ApiKey
 
-  users := userifier.GetUsers(userify_config(api_id, api_key))
+  users := user.GetUsers(userify_config(api_id, api_key))
 
   for _, user := range users {
-    fmt.Println(user)
+    fmt.Println(user.String())
   }
 }

@@ -1,4 +1,4 @@
-package userifier
+package user
 
 import (
   "github.com/jeffail/gabs"
@@ -16,17 +16,27 @@ func (u User) String() string {
   return u.UserName + " (real name: " + u.RealName + ", preferred shell: " + u.PreferredShell + ")"
 }
 
-func GetUsers(json string) []User {
+func New(user_name string, real_name string, ssh_public_key string, preferred_shell string, perm string) (user *User) {
+  return &User{
+    UserName: user_name,
+    RealName: real_name,
+    SshPublicKey: ssh_public_key,
+    PreferredShell: preferred_shell,
+    Perm: perm,
+  }
+}
+
+func GetUsers(json string) []*User {
   parsed, _ := gabs.ParseJSON([]byte(json))
 
   user_blobs, _ := parsed.Search("users").ChildrenMap()
 
-  var users []User
+  var users []*User
 
   for user_name, _ := range user_blobs {
     user_data := parsed.Path("users." + user_name).Data().(map[string]interface{})
 
-    users = append(users, User{user_name, user_data["name"].(string), user_data["ssh_public_key"].(string), user_data["preferred_shell"].(string), user_data["perm"].(string)})
+    users = append(users, New(user_name, user_data["name"].(string), user_data["ssh_public_key"].(string), user_data["preferred_shell"].(string), user_data["perm"].(string)))
   }
 
   return users
