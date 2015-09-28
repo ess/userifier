@@ -41,4 +41,25 @@ var _ = Describe("User", func() {
 				ContainSubstring("preferred shell: '" + user.PreferredShell + "'"))
 		})
 	})
+
+	Describe(".UsersFromJSON()", func() {
+		var (
+			json string
+		)
+
+		BeforeEach(func() {
+			json = `{"shim-delay": 24, "users": {"user1": {"ssh_public_key": "ssh-key keyforuser1 user1@example.com", "name": "User 1", "perm": "ALL=NOPASSWD: ALL", "preferred_shell": "/bin/bash"}, "user2": {"ssh_public_key": "ssh-key keyforuser2 user2@example.com", "name": "User 2", "preferred_shell": "", "perm": ""}}}`
+
+		})
+
+		It("is a slice of User instances", func() {
+			var expected []*User
+
+			Expect(UsersFromJSON(json)).To(BeAssignableToTypeOf(expected))
+		})
+
+		It("contains a User for each represented in the provided JSON", func() {
+			Expect(len(UsersFromJSON(json))).To(Equal(2))
+		})
+	})
 })
