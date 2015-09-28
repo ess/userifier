@@ -14,10 +14,13 @@ type Config struct {
 
 func New(config_file string) (config *Config) {
   config = &Config{File: config_file}
-  if _, err := toml.DecodeFile(config_file, &config); err != nil {
+  config.readConfigFile()
+  return config
+}
+
+func (config *Config) readConfigFile() {
+  if _, err := toml.DecodeFile(config.File, &config); err != nil {
     fmt.Println(err)
     os.Exit(1)
   }
-
-  return config
 }

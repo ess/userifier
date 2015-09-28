@@ -9,7 +9,10 @@ import (
 )
 
 func main() {
-  var config_file = flag.String("config", "/opt/userify/config.toml", "config file to use")
+  var config_file = flag.String(
+    "config",
+    "/opt/userify/config.toml",
+    "config file to use")
   flag.Parse()
 
   config := config.New(*config_file)
