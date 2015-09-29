@@ -12,8 +12,8 @@ type Config struct {
 
 func New(config_file string) (config *Config, err error) {
 	config = &Config{File: config_file}
-  err = config.readConfigFile()
-  return config, err
+	err = config.readConfigFile()
+	return config, err
 }
 
 func (config *Config) readConfigFile() (err error) {
