@@ -1,9 +1,7 @@
 package config
 
 import (
-	"fmt"
 	"github.com/BurntSushi/toml"
-	"os"
 )
 
 type Config struct {
@@ -12,15 +10,15 @@ type Config struct {
 	ApiKey string `toml:"api_key"`
 }
 
-func New(config_file string) (config *Config) {
+func New(config_file string) (config *Config, err error) {
 	config = &Config{File: config_file}
-	config.readConfigFile()
-	return config
+  err = config.readConfigFile()
+  return config, err
 }
 
-func (config *Config) readConfigFile() {
+func (config *Config) readConfigFile() (err error) {
 	if _, err := toml.DecodeFile(config.File, &config); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		return err
 	}
+	return nil
 }

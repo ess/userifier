@@ -1,4 +1,4 @@
-package main_test
+package user_test
 
 import (
 	. "github.com/ess/userifier/user"

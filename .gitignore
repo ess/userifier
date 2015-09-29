@@ -1,4 +1,5 @@
 *~
 *.swp
-userifier*
+userifier
 config.toml
+*.coverprofile
